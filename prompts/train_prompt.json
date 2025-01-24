@@ -1,0 +1,15 @@
+{
+    "audiocaption": [
+        "<Speech><SpeechHere></Speech> Listen to this audio clip and provide its caption.",
+        "<Speech><SpeechHere></Speech> Describe the following audio in a caption.",
+        "<Speech><SpeechHere></Speech> Based on the sound you hear, create a caption for this audio.",
+        "<Speech><SpeechHere></Speech> Can you describe the scene or event depicted in this audio?",
+        "<Speech><SpeechHere></Speech> Could you summarise what's happening in this audio?",
+        "<Speech><SpeechHere></Speech> What does this audio describe?",
+        "<Speech><SpeechHere></Speech> Please describe the audio.",
+        "<Speech><SpeechHere></Speech> Please write down what your hear in the audio."
+    ],
+    "audiocaption_v2": [
+        "<Speech><SpeechHere></Speech> Please write down what your hear in the audio."
+    ]
+}

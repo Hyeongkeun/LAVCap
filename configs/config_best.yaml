@@ -1,0 +1,133 @@
+model:
+  # paths
+  encoder_path: "./pretrained_weights/ced/audiotransformer_base_mAP_4999.pt"
+  freeze_enc: True
+  llama_decoder_path: "./pretrained_weights/Video-LLaMA-2-7B-Finetuned/llama-2-7b-chat-hf"
+
+  ckpt: # if not "", load model from ckpt for training or evaluation
+
+  # encoder (CED)
+  n_class: 527
+  embed_dim: 768
+  vis_embed_dim: 768
+  melbins: 64
+  target_length: 1024
+
+  # Encoder LoRA
+  enc_lora: True
+  enc_lora_rank: 8
+  enc_lora_alpha: 32
+  enc_lora_dropout: 0.1
+
+  # Decoder LoRA
+  dec_lora: True
+  dec_lora_rank: 8
+  dec_lora_alpha: 32
+  dec_lora_dropout: 0.1
+
+  # Fusion (Optimal Transport)
+  fusion_type: "ot_tempcat_QAV_add" # "temp_cat_afQF", "temp_cat_bfQF", "chan_cat_bfQF", "", "aud_embed_only", "vis_embed_only", "opt_trans_temp", "opt_trans_chan"
+  spec_f_mean: True
+  av_embed_norm: False
+  ot_loss_weight: 1.0
+  num_sinkhorn_iter: 50
+  sinkhorn_epsilon: 0.1
+  prompt_ratio: 0
+  use_exp_Q: False
+
+  # Q-former
+  use_speech_Qformer: False
+  num_speech_query_token: 1
+  freeze_speech_QFormer: False
+  window_level_Qformer: True
+  second_per_window: 0.333333
+  second_stride: 0.333333
+  
+  # Proj Q-former to LLaMA
+  speech_llama_proj_model: ""
+  freeze_speech_llama_proj: False
+
+  # Prompting
+  multi_prompt: True
+  prompt_template: "USER: {}\nASSISTANT:"
+  prompt_path: "./prompts/train_prompt.json"
+  test_prompt_path: "./prompts/test_prompt.json"
+  max_txt_len: 300
+  end_sym: "</s>"
+
+  # captioning model
+  loss_type: 
+  padding_idx: 0
+
+  # details for LLaMA
+  low_resource: False
+  device_8bit: 0
+
+datasets:
+  train_data_path: "./dataset/audiocaps/train"
+  valid_data_path: "./dataset/audiocaps/test"
+  test_data_path: 
+  label_path: "./dataset/class_labels_indices.csv"
+  annot_path: "./datasets/audiocaps/test_coco.json"
+
+  target_length: 1024
+  melbins: 64   
+  freqm: 48
+  timem: 192
+
+  dataset_mean: -4.346
+  dataset_std: 4.332
+  label_smooth: 0.1
+
+  total_frame: 20
+  num_frame: 1
+  im_res: 224
+
+run:
+  # log & settings
+  seed: 42
+  save_path: "./exp/"
+  evaluate: False # if True, only evaluate model on test data
+  coco_evaluate: True
+  coco_freq: 1
+
+  model_save_freq: 2
+  log_freq : 10
+  accum_grad_iters: 1
+
+  batch_size: 4
+  num_workers: 8
+
+  device: "cuda"
+  use_distributed: True
+  amp: True
+  port: "8887"
+  world_size: 1
+  dist_url: "env://"
+
+  # optimizer & scheduler
+  optims:
+    max_epoch: 100
+    warmup_epoch: 2
+    warmup_start_lr: 2e-9
+    init_lr: 5e-6
+    min_lr: 1e-8
+    weight_decay: 1e-6  
+    beta2: 0.999
+
+  wandb:
+    no_wandb: True
+    wandb_entity: 
+    wandb_project: 
+    wandb_name: 
+
+
+generate:
+  max_new_tokens: 200
+  num_beams: 4
+  do_sample: False
+  min_length: 1
+  temperature: 1.0
+  top_p: 0.9
+  repetition_penalty: 1.0
+  length_penalty: 1.0
