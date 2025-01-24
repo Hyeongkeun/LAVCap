@@ -23,7 +23,7 @@ This implementation is specifically designed to run on **NVIDIA GPUs** and lever
 ## Abstract
 
 <figure align="center">
-    <img src="./fig/LAVCap.png" width="50%" alt="LAVCap">
+    <img src="./fig/LAVCap.png" width="100%" alt="LAVCap">
     <figcaption style="text-align: center;">Fig. 1. (a) Overview of the proposed LAVCap Framework. (b) Detail of the Optimal Transport Fusion module.</figcaption>
 </figure>
 
