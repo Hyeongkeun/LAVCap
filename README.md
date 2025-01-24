@@ -22,10 +22,12 @@ This implementation is specifically designed to run on **NVIDIA GPUs** and lever
 
 ## Abstract
 
+<div align="center">
 <figure style="text-align: center;">
     <img src="./fig/LAVCap.png" width="100%" alt="LAVCap">
-    <figcaption>Fig. 1. (a) Overview of the proposed LAVCap Framework. (b) Detail of the Optimal Transport Fusion module.</figcaption>
+    <p><em>Fig. 1. (a) Overview of the proposed LAVCap Framework. (b) Detail of the Optimal Transport Fusion module.</em></p>
 </figure>
+</div>
 
 <br /> <br />
 Automated audio captioning is a task that generates textual descriptions for audio content, and recent studies have explored using visual information to enhance captioning quality. However, current methods often fail to effectively fuse audio and visual data, missing important semantic cues from each modality. To address this, we introduce LAVCap, a large language model (LLM)-based audio-visual captioning framework that effectively integrates visual information with audio to improve audio captioning performance. LAVCap employs an optimal transportbased alignment loss to bridge the modality gap between audio and visual features, enabling more effective semantic extraction. Additionally, we propose an optimal transport attention module that enhances audio-visual fusion using an optimal transport assignment map. Combined with the optimal training strategy, experimental results demonstrate that each component of our framework is effective. LAVCap outperforms existing state-of-the-art methods on the AudioCaps dataset, without relying on large datasets or post-processing.
